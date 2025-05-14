@@ -2,6 +2,8 @@
 
 import { useState } from "react"
 import Link from "next/link"
+import Image from 'next/image';
+
 import { Menu, X, User } from "lucide-react"
 
 import { Button } from "@/components/ui/button"
@@ -20,7 +22,15 @@ export function MainNav() {
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen)
   }
-
+ const submenu = [
+    { label: "CPU / Processor", href: "/cpu" },
+    { label: "Motherboard", href: "/motherboard" },
+    { label: "RAM", href: "/ram" },
+    { label: "Power Supply Unit", href: "/power-supply-unit" },
+    { label: "Storage Device", href: "/power-supply-unit" },
+    { label: "Monitor", href: "/power-supply-unit" },
+    { label: "Others", href: "/power-supply-unit" },
+  ]
   return (
     <header className="mx-auto sticky top-0 max-w-[1240px] z-50 border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60 p-2">
       <div className="container flex h-16 items-center">
@@ -32,7 +42,14 @@ export function MainNav() {
 
         <div className="mr-4 hidden md:flex">
           <Link href="/" className="mr-6 flex items-center space-x-2">
-            <span className="font-bold">LOGO</span>
+            <span className="font-bold">
+            <Image 
+              src="/next.svg" // relative path to image in public folder
+              alt="My Photo"
+              width={100} 
+              height={40} 
+/>
+            </span>
           </Link>
         </div>
 
@@ -45,14 +62,24 @@ export function MainNav() {
               </Link>
             </li>
             <li>
-              <Link href="/features" className="text-sm font-medium transition-colors hover:text-primary">
-                Features
-              </Link>
-            </li>
-            <li>
-              <Link href="/pricing" className="text-sm font-medium transition-colors hover:text-primary">
-                Pricing
-              </Link>
+              <DropdownMenu>
+            <DropdownMenuTrigger asChild>
+            <DropdownMenuLabel className="py-1">Categories</DropdownMenuLabel>
+            </DropdownMenuTrigger>
+                <DropdownMenuContent align="end">
+                  { 
+                    submenu.map((items) => {
+                      return (
+                       <Link key={items.label} href={items.href} className="text-sm font-medium transition-colors hover:text-primary">
+                        <DropdownMenuItem className="flex items-center">
+                          {items.label}
+                        </DropdownMenuItem> </Link>
+                       
+                      )
+                    })
+                  }
+            </DropdownMenuContent>
+          </DropdownMenu>
             </li>
             <li>
               <Link href="/about" className="text-sm font-medium transition-colors hover:text-primary">
@@ -70,12 +97,11 @@ export function MainNav() {
         {/* Right side - desktop */}
         <div className="ml-auto flex items-center gap-2">
         <div className="hidden md:flex md:items-center md:gap-2">
-            <Button variant="outline">Sign In</Button>
-            <Button>Sign Up</Button>
+            <Button variant="outline">PC Builder</Button>
           </div>
           <DropdownMenu>
             <DropdownMenuTrigger asChild>
-              <Button variant="ghost" size="icon" className="rounded-full">
+              <Button variant="ghost" size="icon" className="rounded-full border-2 border-primary">
                 <User className="h-5 w-5" />
                 <span className="sr-only">Account menu</span>
               </Button>
@@ -101,7 +127,6 @@ export function MainNav() {
             <Link
               href="/"
               className="text-sm font-medium transition-colors hover:text-primary"
-              onClick={() => setIsMenuOpen(false)}
             >
               Home
             </Link>
@@ -135,9 +160,9 @@ export function MainNav() {
             </Link>
             <div className="flex gap-2 pt-4">
               <Button variant="outline" className="flex-1">
-                Sign In
+                PC Builder
               </Button>
-              <Button className="flex-1">Sign Up</Button>
+              <Button className="flex-1">Account</Button>
             </div>
           </nav>
         </div>
