@@ -3,7 +3,7 @@
 import { useState } from "react"
 import Link from "next/link"
 import Image from 'next/image';
-
+import { useSession, signIn, signOut } from "next-auth/react"
 import { Menu, X, User } from "lucide-react"
 
 import { Button } from "@/components/ui/button"
@@ -18,7 +18,7 @@ import {
 
 export function MainNav() {
   const [isMenuOpen, setIsMenuOpen] = useState(false)
-
+  const session  = useSession()
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen)
   }
@@ -99,30 +99,41 @@ export function MainNav() {
         <div className="hidden md:flex md:items-center md:gap-2">
             <Button variant="outline">PC Builder</Button>
           </div>
-          <DropdownMenu>
-            <DropdownMenuTrigger asChild>
-              <Button variant="ghost" size="icon" className="rounded-full border-2 border-primary">
-                <User className="h-5 w-5" />
-                <span className="sr-only">Account menu</span>
-              </Button>
-            </DropdownMenuTrigger>
-            <DropdownMenuContent align="end">
-              <DropdownMenuLabel>My Account</DropdownMenuLabel>
-              <DropdownMenuSeparator />
-              <DropdownMenuItem>Profile</DropdownMenuItem>
-              <DropdownMenuItem>Settings</DropdownMenuItem>
-              <DropdownMenuItem>Billing</DropdownMenuItem>
-              <DropdownMenuSeparator />
-              <DropdownMenuItem>Log out</DropdownMenuItem>
-            </DropdownMenuContent>
-          </DropdownMenu>
+
+          { 
+            session ? (
+              null
+            ) : (
+              <Button variant="outline" onClick={() => signIn()}>Sign In</Button> 
+            )
+          }
+
+          {
+            session ? (<DropdownMenu>
+              <DropdownMenuTrigger asChild>
+                <Button variant="ghost" size="icon" className="rounded-full border-2 border-primary">
+                  <User className="h-5 w-5" />
+                  <span className="sr-only">Account menu</span>
+                </Button>
+              </DropdownMenuTrigger>
+              <DropdownMenuContent align="end">
+                <DropdownMenuLabel>My Account</DropdownMenuLabel>
+                <DropdownMenuSeparator />
+                <DropdownMenuItem>Profile</DropdownMenuItem>
+                <DropdownMenuItem>Settings</DropdownMenuItem>
+                <DropdownMenuItem>Billing</DropdownMenuItem>
+                <DropdownMenuSeparator />
+                <DropdownMenuItem onClick={ ()=>signOut()}>Log out</DropdownMenuItem>
+              </DropdownMenuContent>
+            </DropdownMenu>) : <Button variant="outline" onClick={() => signIn()}>Sign In</Button> 
+          }
 
         </div>
       </div>
 
       {/* Mobile menu */}
       {isMenuOpen && (
-        <div className="container md:hidden">
+        <div className="container md:hidden z-50">
           <nav className="flex flex-col space-y-4 py-4">
             <Link
               href="/"

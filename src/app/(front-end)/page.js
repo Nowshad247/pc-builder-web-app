@@ -4,8 +4,8 @@ import LoginButton from "../components/LoginButton";
 import UserInfo from "../components/UserInfo";
 import { authOptions } from "../api/auth/[...nextauth]/route";
 
-export default function Home() {
-  const session = getServerSession(authOptions);
+export default async function Home() {
+  const session = await getServerSession(authOptions);
   return (
     <div className="">
       <HomePageheader></HomePageheader>
