@@ -62,7 +62,7 @@ export function MainNav() {
               </Link>
             </li>
             <li>
-              <DropdownMenu>
+          <DropdownMenu>
             <DropdownMenuTrigger asChild>
             <DropdownMenuLabel className="py-1">Categories</DropdownMenuLabel>
             </DropdownMenuTrigger>
