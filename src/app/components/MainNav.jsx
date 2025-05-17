@@ -18,7 +18,7 @@ import {
 
 export function MainNav() {
   const [isMenuOpen, setIsMenuOpen] = useState(false)
-  const session  = useSession()
+  const session = useSession()
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen)
   }
@@ -100,8 +100,8 @@ export function MainNav() {
             <Button variant="outline">PC Builder</Button>
           </div>
 
-          { 
-            session ? (
+          {
+            session.data ? (
               null
             ) : (
               <Button variant="outline" onClick={() => signIn()}>Sign In</Button> 
@@ -109,7 +109,7 @@ export function MainNav() {
           }
 
           {
-            session ? (<DropdownMenu>
+            session.data ? (<DropdownMenu>
               <DropdownMenuTrigger asChild>
                 <Button variant="ghost" size="icon" className="rounded-full border-2 border-primary">
                   <User className="h-5 w-5" />
@@ -125,7 +125,7 @@ export function MainNav() {
                 <DropdownMenuSeparator />
                 <DropdownMenuItem onClick={ ()=>signOut()}>Log out</DropdownMenuItem>
               </DropdownMenuContent>
-            </DropdownMenu>) : <Button variant="outline" onClick={() => signIn()}>Sign In</Button> 
+            </DropdownMenu>) : null 
           }
 
         </div>

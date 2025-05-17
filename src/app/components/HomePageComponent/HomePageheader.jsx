@@ -10,7 +10,7 @@ import {
 
 export default function HomePageheader() {
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gray-100 px-2 sm:px-2 lg:px-2">
+    <div className="flex items-center justify-center bg-gray-100 py-4 px-2 sm:px-2 lg:px-2">
         <Carousel>
         <CarouselContent>
           <CarouselItem>

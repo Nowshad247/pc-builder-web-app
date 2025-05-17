@@ -20,7 +20,7 @@ export function LoginForm({
     e.preventDefault();
     const formData = new FormData(e.target);
     const data = Object.fromEntries(formData.entries());
-    console.log(data);
+    console.log("data", data);
     registerUser(formData);
   }
   return (

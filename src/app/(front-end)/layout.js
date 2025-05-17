@@ -9,7 +9,7 @@ export default function layout({ children }) {
       <div className="sticky top-0 z-50 bg-white shadow">
         <MainNav />
       </div>
-      <main className="min-h-screen bg-gray-100">{children}</main>
+      <main className="">{children}</main>
 
       <footer className="bg-gray-800 text-white">
         <Footer />
